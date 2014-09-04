@@ -3,9 +3,11 @@ class Particle {
   PVector loc, vel, acc, target;
   float maxLife, life, lifeRate, maxSpeed, maxForce, maxSpeed2;
   float r;
-
+  RShape s;
+  
   // constructor with x and y inputs
-  Particle(float x, float y) {
+  Particle(float x, float y, RShape s_) {
+    s = s_;
     r = random(8) + 1;
     getPosition(); // target location
     loc = new PVector(x, y);
@@ -78,7 +80,7 @@ class Particle {
 
   // return if point is inside the text
   boolean isInText(PVector v) {
-    return shp.contains(int(v.x), int(v.y));
+    return s.contains(int(v.x), int(v.y));
   }
 }
 

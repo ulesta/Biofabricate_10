@@ -1,17 +1,17 @@
 class Letter extends Thread{
 
-  String letter;
-  RShape shp;
-  RFont font;
-  RPoint[][] pnts;  
+  private String letter;
+  private RShape shp;
+  private RFont font;
+  private RPoint[][] pnts;  
 
-  ArrayList ve; // empty array list
-  int count = 1;
+  private ArrayList ve; // empty array list
+  private int count = 1;
 
-  ArrayList <Particle> particles; // the list of particles
-  float maxSegments = 10.0; // maximum segments length
+  private ArrayList <Particle> particles; // the list of particles
+  private float maxSegments = 10.0; // maximum segments length
   
-  PGraphics pg;
+  private PGraphics pg;
 
   Letter(String letter_) {
     letter = letter_;
@@ -32,12 +32,17 @@ class Letter extends Thread{
     smooth();
     exVert(shp);
 
-    RG.setPolygonizer(RG.ADAPTATIVE);
-    RG.setPolygonizerLength(maxSegments);
+// [Justin] By commenting these out, it seems to work. What does this do? 
+    //RG.setPolygonizer(RG.ADAPTATIVE);
+    //RG.setPolygonizerLength(maxSegments);
+    
+    shp = RG.polygonize(shp);
     println("# of points: " + ve.size());
   }
 
   void display() {
+    shp.draw();
+    System.out.println("I am running: " + letter + "\t I have ve: " + ve.size() );
     if (count < ve.size()) {
       //    strokeWeight(map(mouseY, 0, height, 1, 10));
       if (((Point) ve.get(count)).z != -55.0) {
